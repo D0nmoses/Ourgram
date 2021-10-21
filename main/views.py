@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Follow, Like, Comment, Post, Profile
+from .models import Follow, Post, Profile
+from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -47,3 +49,24 @@ def home(request):
 
     return render(request, 'all_gram/home.html',
                   { "title": title, "following": following, "user": current_user, "posts": posts, "following_posts": following_posts, "profiles":profiles_list})
+
+
+@login_required(login_url='/accounts/login')
+def profile(request,id):
+    '''	
+    View function to display the profile of the logged in user when they click on the user icon	
+    '''
+    current_user = request.user
+
+    try:
+
+        single_profile = Profile.objects.get(user=current_user.id)
+
+        title = f'{current_user.username}\'s'
+
+        posts = Post.objects.filter(user=current_user.id)
+
+        return render(request, 'all_gram/my_profile.html', {"title":title,"single_profile":single_profile,"current_user":current_user,"posts":posts})
+
+    except ObjectDoesNotExist:
+        raise Http404()
