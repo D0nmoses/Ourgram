@@ -56,4 +56,20 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+class Follow(models.Model):
+    '''	
+    Class that store a User and Profile follow status	
+    '''
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+    @classmethod
+    def get_following(cls,user_id):
+
+        following = Follow.objects.filter(user=user_id).all()
+
+        return following

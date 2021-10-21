@@ -11,4 +11,4 @@ def home(request):
 
     title = 'Home'
 
-    return render('all-posts/home.html',{"title": title,"user": current_user})
+    return render(request, 'all-posts/home.html',{"title": title, "user": current_user})
