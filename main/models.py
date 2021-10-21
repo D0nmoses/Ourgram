@@ -186,4 +186,4 @@ class Like(models.Model):
         found_likes = post.aggregate(Sum('likes_number')).get('likes_number__sum',0)
 
         return found_likes
-© 2021 GitHub, Inc.
+
