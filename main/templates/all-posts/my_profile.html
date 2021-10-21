@@ -1,0 +1,48 @@
+{% extends 'all-posts/base.html' %}
+{% load bootstrap3 %]
+{% load static %}
+
+
+{% block styles %}
+
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
+
+{% endblock %}
+
+{% block content %}
+{{ block.super}}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src={{single_profile.profile_pic.url}} alt="" class="img-rounded img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4>
+                            {{current_user.username}}</h4>
+                        <small><cite>{{single_profile.bio}}</cite></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row"><div class="container" id="image-container">
+
+            {% for post in posts %}
+
+                <a href="#">
+                    <div class="panel pic-preview">
+                        <div class="panel-body panel-body-preview">
+                            <img class="image-preview" src="{{post.image.url}}" alt="{{post.id}}"/>
+                            <p>{{post.caption}}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div></div>
+
+</div>
+{% endblock %}
