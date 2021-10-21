@@ -103,7 +103,7 @@ def new_post(request):
 
     title = 'Create Post'
 
-    return render(request,'all_gram/new_post.html', {"form":form})
+    return render(request,'all-posts/new_post.html', {"form":form})
 
 @login_required(login_url='accounts/login/')
 def new_comment(request, id):
@@ -135,7 +135,7 @@ def new_comment(request, id):
 
     title = f'Comment {current_post.user.username}\'s Post'
 
-    return render(request, 'all_gram/new_comment.html', {"title": title, "form": form, "current_post": current_post})
+    return render(request, 'all-posts/new_comment.html', {"title": title, "form": form, "current_post": current_post})
 
 @login_required(login_url='/accounts/login')
 def follow(request,id):
@@ -172,7 +172,7 @@ def post(request,id):
     except ObjectDoesNotExist:
         raise Http404()
 
-    return render(request, 'all_gram/post.html', {"title":title, "post":current_post,"comments":comments,"likes":likes,"like":like })
+    return render(request, 'all-posts/post.html', {"title":title, "post":current_post,"comments":comments,"likes":likes,"like":like })
 
 @login_required(login_url='/accounts/login')
 def like(request,id):
