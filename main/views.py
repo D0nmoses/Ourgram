@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
 
@@ -47,11 +47,11 @@ def home(request):
         if profile not in following_profile_list:
             profiles_list.append(profile)
 
-    return render(request, 'all_gram/home.html',
+    return render(request, 'all-posts/home.html',
                   { "title": title, "following": following, "user": current_user, "posts": posts, "following_posts": following_posts, "profiles":profiles_list})
 
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def profile(request,id):
     '''	
     View function to display the profile of the logged in user when they click on the user icon	
@@ -66,7 +66,7 @@ def profile(request,id):
 
         posts = Post.objects.filter(user=current_user.id)
 
-        return render(request, 'all_gram/my_profile.html', {"title":title,"single_profile":single_profile,"current_user":current_user,"posts":posts})
+        return render(request, 'all-posts/my_profile.html', {"title":title,"single_profile":single_profile,"current_user":current_user,"posts":posts})
 
     except ObjectDoesNotExist:
         raise Http404()

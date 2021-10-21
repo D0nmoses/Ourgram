@@ -6,3 +6,113 @@
     {{block.super}}
     <link rel="stylesheet" href="{% static 'css/home.css'%}">
 {% endblock %}
+{% block content %}
+{{block.super}}
+    <div class = "container-fluid">
+        <div class="row">
+        <a href = "{% url 'new-post' %}"><button class="btn btn-primary btn-lg btn-block">New Post</button></a>
+    </div>
+
+        <div class="container">
+
+            {%if following_posts %}
+
+            <div class="row profileRow">
+
+                {%for follow in following_posts%}
+
+                    <!-- Profile Div -->
+
+                    <div class="col-md-10 col-lg-10">
+
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+
+                                <img src="{{follow.profile.profile_pic.url}}" alt="{{follow.profile.user.username}}" class="img-responsive profilePicture">
+
+                                <h6 class="username">
+                                    {{follow.profile.user.username}}
+                                </h6>
+
+                                <h6 class="timeSince">
+                                    {{follow.post_date | timesince}} ago
+                                </h6>
+
+                            </div>
+
+                            <div class="panel-body">
+
+                                <a href="{%url 'post' follow.id%}">
+
+                                    <img src="{{follow.image.url}}" alt="{{follow.caption}}" class="img-responsive postImage">
+
+                                    <h5 class="text-center">
+                                        {{follow.caption}}
+                                    </h5>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {%else%}
+
+                <h2 class="text-center">
+                    You are Not Following Anyone
+                </h2>
+
+            {%endif%}
+                <h2 class="text-center">
+                Other Users
+            </h2>
+
+            <div class="row profileRow">
+
+                {%for profile in profiles%}
+
+                    <!-- Profile Div -->
+
+                    <div class="col-md-10 col-lg-10">
+
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+
+                                <img src="{{profile.profile_pic.url}}" alt="{{profile.user.username}}" class="img-responsive profilePicture">
+
+                                <h6 class="username">
+                                    {{profile.user.username}}
+
+                                    <a href="{% url 'follow' profile.id%}" class="follow">
+                                        Follow
+                                    </a>
+
+                                </h6>
+
+                            </div>
+
+                            <div class="panel-body">
+                                {{profile.user.username}}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+{% endblock %}
